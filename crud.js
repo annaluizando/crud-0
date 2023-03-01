@@ -24,7 +24,7 @@ function send() {
             newItem.addEventListener('focusout', (edit) => {
                 newItem.setAttribute('contenteditable', 'false');
 
-                                
+
                 var isAlphanumeric = /^[a-zA-Z0-9]+$/.test(newItem.innerText); // to use regex to check if the p (aka newItem) from task is empty
 
                 if (isAlphanumeric == false) {
