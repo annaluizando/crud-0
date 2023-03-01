@@ -10,42 +10,32 @@ function send() {
 
     newItem.id = count;
     newItem.innerHTML = `${item.value}`;
+    newItem.value = `${item.value}`; // to transform newItem from undefined to have the same value has what the user have writed
 
     if (item.value.length == 0) {
         window.alert("please type something in the input");
-    } // to send an alert and not allow when the user is trying to send a task blank. 
+    } // to send an alert and not allow when the user is trying to send a task blank
     else {
+        // to make the task editable when the user clicks it  2 times
         info.addEventListener("click", (edit) => {
-            if (edit.detail === 2) {
-                newItem.setAttribute('contenteditable', 'true');
-            } // to make the task editable when the user clicks it  2 times.
+            newItem.setAttribute('contenteditable', 'true');
 
-            // testing thing to edit task using arrowdown(??          
-            // newItem.addEventListener("keypress", (e) =>{ 
-            //     if(e.code === "ArrowDown"){
-            //         newItem.setAttribute('contenteditable', 'true');
-            //     }
-            // });
-
+            // to make a task uneditable when the user clicks in a place different than it
             newItem.addEventListener('focusout', (edit) => {
-                // to make a task uneditable when the user clicks in a place different than it.
                 newItem.setAttribute('contenteditable', 'false');
 
-                var isAlphanumeric = /^[a-zA-Z0-9]+$/.test(newItem.value); // to use regex to check if the p (aka newItem) from task is empty
-                if (isAlphanumeric == true) {
+                                
+                var isAlphanumeric = /^[a-zA-Z0-9]+$/.test(newItem.innerText); // to use regex to check if the p (aka newItem) from task is empty
+
+                if (isAlphanumeric == false) {
                     task.remove();
                 } // to delete the task in case the user starts to edit but in the end doesn't type a thing
             });
 
             newItem.addEventListener("keypress", (e) => {
-                // to make a task uneditable when the user press enter after editing it.
+                // to make a task uneditable when the user press enter after editing it
                 if (e.code === "Enter") {
                     newItem.setAttribute('contenteditable', 'false');
-
-                    var isAlphanumeric = /^[a-zA-Z0-9]+$/.test(newItem.value); // to use regex to check if the p (aka newItem) from task is empty
-                    if (isAlphanumeric == true) {
-                        task.remove();
-                    } // to delete the task in case the user starts to edit but in the end doesn't type a thing
                 }
             });
         });
@@ -66,18 +56,18 @@ function send() {
         del.id = 'del';
         del.value = 'delete';
 
-        // function to delete a task.
+        // function to delete a task
         del.onclick = (del) => {
             task.remove();
         }
 
         task.appendChild(del);
 
-        item.value = ''; // cleanning the input after send function (creating a task).
+        item.value = ''; // cleanning the input after send function (creating a task)
     }
 }
 
-// function to allow the user to send a task that was typed by pressing the "enter" key.
+// function to allow the user to send a task that was typed by pressing the "enter" key
 text.addEventListener("keydown", (e) => {
     e.code === "Enter" ? send() : undefined;
 });
