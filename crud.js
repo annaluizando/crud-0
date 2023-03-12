@@ -69,5 +69,5 @@ function send() {
 
 // function to allow the user to send a task that was typed by pressing the "enter" key
 text.addEventListener("keydown", (e) => {
-    e.code === "Enter" ? send() : undefined;
+    e.code === "Enter" && send();
 });
